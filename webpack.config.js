@@ -1,3 +1,5 @@
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
     entry: [
         "webpack-dev-server/client?http://localhost:8080",
@@ -13,7 +15,19 @@ module.exports = {
 
     module: {
         loaders: [
-            { test: /\.styl$/, loaders: ['style', 'css', 'stylus'] }
+            {
+                test: /\.styl$/,
+                loaders: [
+                    "style",
+                    ExtractTextPlugin.extract(),
+                    "css",
+                    "stylus"
+                ]
+            }
         ]
-    }
+    },
+
+    plugins: [
+        new ExtractTextPlugin("bundle.css")
+    ]
 }
