@@ -1,4 +1,3 @@
-//require("./all.css");
 require("./all.styl");
 
 var contentEle = document.getElementsByClassName("content")[0];

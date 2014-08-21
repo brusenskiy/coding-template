@@ -23,6 +23,10 @@ module.exports = {
                     "css",
                     "stylus"
                 ]
+            },
+            {
+                test: /\.png$/,
+                loader: "url-loader?limit=20000&mimetype=image/png"
             }
         ]
     },
