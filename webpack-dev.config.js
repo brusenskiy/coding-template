@@ -1,14 +1,8 @@
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 module.exports = {
     entry: [
+        "webpack/hot/dev-server",
         "./src/app"
     ],
-    output: {
-        path: __dirname + "/static",
-        publicPath: "/static/",
-        filename: "app.js"
-    },
     module: {
         loaders: [
             {
@@ -22,14 +16,10 @@ module.exports = {
                 test: /\.styl$/,
                 loaders: [
                     "style",
-                    ExtractTextPlugin.extract(),
                     "css",
                     "stylus"
                 ]
             }
         ]
-    },
-    plugins: [
-        new ExtractTextPlugin("app.css")
-    ]
+    }
 }

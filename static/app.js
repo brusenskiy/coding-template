@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/static/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -51,7 +51,6 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//require("./all.css");
 	__webpack_require__(3);
 
 	var contentEle = document.getElementsByClassName("content")[0];

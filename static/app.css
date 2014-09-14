@@ -89,15 +89,15 @@ td {
 a img {
   border: none;
 }
-.head {
-  padding: 20px;
-  background-color: #9acd32;
-  width: 560px;
-}
 .head__logo {
   width: 100px;
   height: 100px;
   background-color: #ff0;
+}
+.head {
+  padding: 20px;
+  background-color: #9acd32;
+  width: 560px;
 }
 .content {
   padding: 20px;
