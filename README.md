@@ -9,7 +9,7 @@ Run Webpack Dev Server [localhost:8080](http://localhost:8080/) or
 
 Get production version with Webpack:
 
-    webpack --progress --colors
+    webpack --progress --colors --optimize-minimize --optimize-dedupe
 
 (Optional) To run Stylus watcher:
 
