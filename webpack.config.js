@@ -1,8 +1,9 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var Webpack = require("webpack");
 
 module.exports = {
     entry: [
-        "./src/app"
+        "./src/app.js"
     ],
     output: {
         path: __dirname + "/static",
@@ -11,25 +12,20 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test: /\.(png|jpg|gif)$/,
-                loader: "url-loader?prefix=img/&limit=5000"
-            },
-            { test: /\.woff2?$/, loader: "url-loader?limit=5000" },
-            { test: /\.(eot|ttf|svg)$/, loader: "file-loader" },
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            {
-                test: /\.styl$/,
-                loaders: [
-                    "style",
-                    ExtractTextPlugin.extract(),
-                    "css",
-                    "stylus"
-                ]
-            }
+            { test: /\.(png|jpe?g|gif)$/, loader: "url?prefix=img/&limit=5000" },
+            { test: /\.(eot|ttf|svg|woff)$/, loader: "file" },
+            { test: /\.css$/, loader: "style!css" },
+            { test: /\.styl$/, loaders: [
+                "style",
+                ExtractTextPlugin.extract(),
+                "css",
+                "stylus"
+            ]}
         ]
     },
     plugins: [
-        new ExtractTextPlugin("app.css")
+        new ExtractTextPlugin("app.css"),
+        new Webpack.optimize.UglifyJsPlugin(),
+        new Webpack.optimize.DedupePlugin()
     ]
-}
+};

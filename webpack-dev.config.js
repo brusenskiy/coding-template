@@ -1,25 +1,14 @@
 module.exports = {
     entry: [
         "webpack/hot/dev-server",
-        "./src/app"
+        "./src/app.js"
     ],
     module: {
         loaders: [
-            {
-                test: /\.(png|jpg|gif)$/,
-                loader: "url-loader?prefix=img/&limit=5000"
-            },
-            { test: /\.woff2?$/, loader: "url-loader?limit=5000" },
-            { test: /\.(eot|ttf|svg)$/, loader: "file-loader" },
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            {
-                test: /\.styl$/,
-                loaders: [
-                    "style",
-                    "css",
-                    "stylus"
-                ]
-            }
+            { test: /\.(png|jpe?g|gif)$/, loader: "url?limit=5000" },
+            { test: /\.(eot|ttf|svg|woff)$/, loader: "file" },
+            { test: /\.css$/, loader: "style!css" },
+            { test: /\.styl$/, loaders: ["style", "css", "stylus"] }
         ]
     }
-}
+};
