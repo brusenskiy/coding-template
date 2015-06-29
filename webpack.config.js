@@ -1,31 +1,56 @@
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var Webpack = require("webpack");
+var extractTextPlugin = require("extract-text-webpack-plugin");
+var path = require("path");
+var webpack = require("webpack");
+var definePlugin = new webpack.DefinePlugin({
+    "NODE_ENV": JSON.stringify("production")
+});
 
 module.exports = {
-    entry: [
-        "./src/app.js"
+    vendor: [
+        "react",
+        "react/addons",
+        "reflux",
+        "axios",
+        "classnames"
     ],
+    entry: {
+        "app": "./src/index"
+    },
     output: {
-        path: __dirname + "/static",
-        publicPath: "/static/",
-        filename: "app.js"
+        path: __dirname + "/dist",
+        publicPath: "/dist/",
+        filename: "[name].js"
+    },
+    resolve: {
+        extensions: ["", ".js", ".jsx"]
     },
     module: {
         loaders: [
             { test: /\.(png|jpe?g|gif)$/, loader: "url?prefix=img/&limit=5000" },
-            { test: /\.(eot|ttf|svg|woff)$/, loader: "file" },
+            { test: /\.(eot|ttf|svg|woff|woff2)$/, loader: "file" },
             { test: /\.css$/, loader: "style!css" },
-            { test: /\.styl$/, loaders: [
-                "style",
-                ExtractTextPlugin.extract(),
-                "css",
-                "stylus"
-            ]}
+            {
+                test: /\.styl$/,
+                loaders: [
+                    "style",
+                    extractTextPlugin.extract(),
+                    "css",
+                    "stylus?paths=node_modules"
+                ]
+            },
+            {
+                test: /\.jsx?$/,
+                loaders: ["react-hot", "babel"],
+                include: path.join(__dirname, "src"),
+                exclude: /node_modules/
+            }
         ]
     },
     plugins: [
-        new ExtractTextPlugin("app.css"),
-        new Webpack.optimize.UglifyJsPlugin(),
-        new Webpack.optimize.DedupePlugin()
+        new extractTextPlugin("app.css"),
+        new webpack.optimize.CommonsChunkPlugin("vendor", "vendors.js"),
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        definePlugin
     ]
 };
