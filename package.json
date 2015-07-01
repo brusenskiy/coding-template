@@ -28,7 +28,8 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --progress --stats",
     "dev": "node dev-server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
