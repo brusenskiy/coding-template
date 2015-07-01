@@ -31,10 +31,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/api/list", function(req, res) {
-    //res.json(require("./src/modules/module/list.json"));
-    res.json([
-        {"id": 1, "title": "Title 1"},
-        {"id": 2, "title": "2"},
-        {"id": 3, "title": "333"}
-    ]);
+    res.json(require("./api/list.json"));
 });
