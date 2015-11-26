@@ -1,18 +1,18 @@
-import "./app.styl";
+import './app.styl';
 
-import React, { Component } from "react";
-import Head from "./blocks/head/Head";
-import Content from "./blocks/content/Content";
-import Footer from "./blocks/footer/Footer";
+import React from 'react';
+import Head from './components/head/Head.js';
+import Content from './components/content/Content.js';
+import Footer from './components/footer/Footer.js';
 
-export default class App extends Component {
-    render() {
-        return (
-            <div>
-                <Head />
-                <Content />
-                <Footer />
-            </div>
-        );
-    }
+export default class extends React.Component {
+  render() {
+    return (
+      <div>
+        <Head />
+        <Content />
+        <Footer />
+      </div>
+    );
+  }
 }

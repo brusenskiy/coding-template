@@ -1,4 +1,4 @@
-import React from "react";
-import App from "./App";
+import React from 'react';
+import App from './App.js';
 
-React.render(<App />, document.getElementById("root"));
+React.render(<App />, document.getElementById('root'));
