@@ -1,25 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
-var definePlugin = new webpack.DefinePlugin({
-  'NODE_ENV': JSON.stringify('development')
-});
 
 module.exports = {
-  //devtool: 'eval',
+  devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
+    'webpack-hot-middleware/client',
     './src/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/dist/'
+    publicPath: '/static/'
   },
   plugins: [
-    definePlugin,
-    new webpack.HotModuleReplacementPlugin()
-    //new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   //resolve: {
   //  extensions: ['', '.js', '.jsx']
@@ -34,10 +29,10 @@ module.exports = {
         loader: 'style-loader!css-loader!stylus-loader?paths=node_modules'
       },
       {
-        test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
-        include: path.join(__dirname, 'src'),
-        exclude: /node_modules/
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: path.join(__dirname, 'src')
+        //exclude: /node_modules/
       }
     ]
   }

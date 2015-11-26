@@ -1,11 +1,9 @@
 var extractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
-var definePlugin = new webpack.DefinePlugin({
-  'NODE_ENV': JSON.stringify('production')
-});
 
 module.exports = {
+  devtool: 'source-map',
   vendor: [
     'react',
     'react/addons',
@@ -18,7 +16,7 @@ module.exports = {
   },
   output: {
     path: __dirname + '/dist',
-    publicPath: '/dist/',
+    publicPath: '/static/',
     filename: '[name].js'
   },
   //resolve: {
@@ -39,18 +37,27 @@ module.exports = {
         ]
       },
       {
-        test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        test: /\.js$/,
+        loaders: ['babel'],
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/
       }
     ]
   },
   plugins: [
-    new extractTextPlugin('app.css'),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendors.js'),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    definePlugin
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    }),
+    //new webpack.optimize.DedupePlugin(),
+    new extractTextPlugin('app.css')
   ]
 };

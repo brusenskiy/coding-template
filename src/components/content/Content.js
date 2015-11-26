@@ -34,7 +34,7 @@ export default class extends React.Component {
   componentWillMount() {
     this.unsubscribe = store.listen(this.onListChange);
 
-    axios.get('http://localhost:3001/api/list').then(response => {
+    axios.get('/api/list').then(response => {
       actions.updateList(response.data);
 
     }).catch(function(response) {

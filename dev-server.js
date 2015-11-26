@@ -1,35 +1,31 @@
-/**
- * Webpack Dev Server
- */
+var path = require('path');
+var express = require('express');
+var webpack = require('webpack');
+var config = require('./webpack.config.dev.js');
 
-var webpackDevServer = require("webpack-dev-server"),
-    webpack = require("webpack"),
-    config = require("./webpack-dev.config.js");
+var app = express();
+var compiler = webpack(config);
 
-new webpackDevServer(webpack(config), {
-    publicPath: config.output.publicPath,
-    hot: true,
-    historyApiFallback: true
-}).listen(3000, "localhost", function (err, result) {
-    if (err) console.log(err);
-    console.log("Listening at localhost:3000");
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.get('/api/list', function(req, res) {
+  res.json(require('./api/list.json'));
 });
 
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
-/**
- * HTTP Server
- */
+app.listen(3000, 'localhost', function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-var express = require("express"),
-    bodyParser = require("body-parser"),
-    cors = require("cors"),
-    app = express();
-
-app.listen(3001);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-
-app.get("/api/list", function(req, res) {
-    res.json(require("./api/list.json"));
+  console.log('Listening at http://localhost:3000');
 });
