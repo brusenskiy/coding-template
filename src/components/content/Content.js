@@ -3,7 +3,7 @@ import axios from 'axios';
 import reflux from 'reflux';
 import immutable from 'immutable';
 
-import './content.styl';
+import './content.scss';
 
 const actions = reflux.createActions([
   'updateList'
@@ -34,10 +34,10 @@ export default class extends React.Component {
   componentWillMount() {
     this.unsubscribe = store.listen(this.onListChange);
 
-    axios.get('/api/list').then(response => {
+    axios.get('/api/list').then((response) => {
       actions.updateList(response.data);
 
-    }).catch(function(response) {
+    }).catch((response) => {
       if (NODE_ENV === 'development')
         console.log(response);
     });

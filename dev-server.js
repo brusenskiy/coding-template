@@ -18,7 +18,8 @@ app.get('/api/list', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index-dev.html'));
+  //res.sendFile(path.join(__dirname, req.url));
 });
 
 app.listen(3000, 'localhost', function(err) {
