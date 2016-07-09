@@ -1,65 +1,24 @@
-import React from 'react';
-import axios from 'axios';
-import reflux from 'reflux';
-import immutable from 'immutable';
-
+import React, { PropTypes } from 'react';
+import Component from '../common/ShallowCompareComponent';
+import { connect } from 'react-redux';
 import './content.scss';
 
-const actions = reflux.createActions([
-  'updateList'
-]);
-
-const store = reflux.createStore({
-  listenables: [actions],
-
-  list: immutable.List(),
-
-  onUpdateList: function(list) {
-    this.list = immutable.List(list);
-    this.trigger(this.list);
-  }
-});
-
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { list: store.list };
-    this.onListChange = this.onListChange.bind(this);
-  }
-
-  onListChange(list) {
-    this.setState({ list: list });
-  }
-
-  componentWillMount() {
-    this.unsubscribe = store.listen(this.onListChange);
-
-    axios.get('/api/list').then((response) => {
-      actions.updateList(response.data);
-
-    }).catch((response) => {
-      if (NODE_ENV === 'development')
-        console.log(response);
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
+class Content extends Component {
   render() {
-    return (
-      <div className="content">
-        <h2>Content</h2>
+    const { list } = this.props;
 
-        <ul>{ this.state.list.map(item => {
-          return (
-            <li key={ item.id }>
-              <a href={ `?id=${item.id}` }>{ item.title }</a>
-            </li>
-          );
-        })}</ul>
-      </div>
+    return (
+      <ul>{list.map((item, i) => (<li key={i}>{item.title}</li>))}</ul>
     );
   }
 }
+
+Content.propTypes = {
+//  dispatch: PropTypes.func.isRequired,
+  list: PropTypes.object.isRequired,
+};
+
+export default connect((store) => ({
+//  dispatch: store.dispatch,
+  list: store.api.get('list'),
+}))(Content);

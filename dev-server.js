@@ -1,32 +1,53 @@
-var path = require('path');
-var express = require('express');
-var webpack = require('webpack');
-var config = require('./webpack.config.dev.js');
+import path from 'path';
+import express from 'express';
+import webpack from 'webpack';
+import config from './webpack-dev.config.babel.js';
+import fs from 'fs';
 
-var app = express();
-var compiler = webpack(config);
+const app = express();
+const compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
-  publicPath: config.output.publicPath
+  publicPath: config.output.publicPath,
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/api/list', function(req, res) {
-  res.json(require('./api/list.json'));
-});
+// app.get('/api/list', function(req, res) {
+//   res.json(require('./api/list.json'));
+// });
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index-dev.html'));
-  //res.sendFile(path.join(__dirname, req.url));
-});
+app.get('*', (req, res) => {
+  let file;
+  let stats;
 
-app.listen(3000, 'localhost', function(err) {
-  if (err) {
-    console.log(err);
+  try {
+    file = path.join(__dirname, req.url);
+    stats = fs.statSync(file);
+  } catch (e) {
+    // console.log(`no file ${file}`);
+  }
+
+  if (stats && stats.isFile()) {
+    res.sendFile(file);
     return;
   }
 
-  console.log('Listening at http://localhost:3000');
+  try {
+    file = path.join(__dirname, 'build', req.url);
+    stats = fs.statSync(file);
+  } catch (e) {
+    // console.log(`no file ${file}`);
+  }
+
+  if (stats && stats.isFile()) {
+    res.sendFile(file);
+    return;
+  }
+
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+// app.listen(3000, 'localhost', err => if (err) console.log(err));
+app.listen(3000, 'localhost');

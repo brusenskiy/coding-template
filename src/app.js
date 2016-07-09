@@ -1,29 +1,20 @@
 import React from 'react';
-import Head from './components/head/Head.js';
-import Content from './components/content/Content.js';
-import Footer from './components/footer/Footer.js';
+// import Component from './components/common/ShallowCompareComponent';
+import { Router, Route, browserHistory, IndexRedirect } from 'react-router';
 
+import Root from './components/Root';
+import NotFound from './components/common/NotFound';
+import Page from './components/Page';
+
+// import 'normalize.css';
 import './app.scss';
 
-export default class extends React.Component {
-  render() {
-    const navItems = [
-      { href: '/about/', title: 'About' },
-      { href: '/support/', title: 'Support' },
-      { href: '/contacts/', title: 'Contacts' },
-    ];
-
-    return (
-      <div>
-        <Head />
-        <nav><ul>{ navItems.map((item, index) => {
-          return <li key={ index }>
-            <a href={ item.href }>{ item.title }</a>
-          </li>;
-        })}</ul></nav>
-        <Content />
-        <Footer />
-      </div>
-    );
-  }
-}
+export default () => (
+  <Router history={browserHistory}>
+    <Route path="/" component={Root}>
+      <IndexRedirect to="page" />
+      <Route path="page" component={Page} />
+      <Route path="*" component={NotFound} />
+    </Route>
+  </Router>
+);
