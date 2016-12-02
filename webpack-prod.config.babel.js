@@ -34,8 +34,6 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } }),
     new CopyWebpackPlugin([
       { from: './src/index.html', to: '../../' },
-      { from: './src/index.php', to: '../../' },
-      { from: './src/robots.txt', to: '../../' },
     ]),
     new AssetsPlugin({ prettyPrint: true }),
     // new ExtractTextPlugin('app.css'),
