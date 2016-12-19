@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
-    './src/index.js',
+    './src/index.jsx',
   ],
   output: {
     path: path.join(__dirname, 'build', 'static'),
@@ -39,7 +39,7 @@ module.exports = {
         loaders: ['style', 'css', 'sass'],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'src'),
       },
