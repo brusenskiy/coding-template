@@ -7,6 +7,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
+    './src/material-forms.jsx',
     './src/index.jsx',
   ],
   output: {

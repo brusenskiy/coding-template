@@ -4,11 +4,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import Tab from 'material-ui/Tabs/Tab';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Element from './Element/Element';
+import Button from './Button';
 
 
 class Form extends Component {
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object),
+    buttons: PropTypes.arrayOf(PropTypes.object),
   };
 
   render() {
@@ -21,8 +23,15 @@ class Form extends Component {
       </Card>
     ));
 
+    const buttons = this.props.buttons.map((b, i) =>
+      <Button key={i} {...b} />);
+
     return (
-      <MuiThemeProvider><div>{items}</div></MuiThemeProvider>
+      <MuiThemeProvider><form method="post">
+        {items}
+        <br /><br />
+        {buttons}
+      </form></MuiThemeProvider>
     );
   }
 }

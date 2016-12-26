@@ -41,6 +41,13 @@ app.get('*', (req, res) => {
     // console.log(`no file ${file}`);
   }
 
+  try {
+    file = path.join(__dirname, 'src', req.url);
+    stats = fs.statSync(file);
+  } catch (e) {
+    // console.log(`no file ${file}`);
+  }
+
   if (stats && stats.isFile()) {
     res.sendFile(file);
     return;

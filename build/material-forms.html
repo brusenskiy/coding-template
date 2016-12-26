@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Use minimum-scale=1 to enable GPU rasterization -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
+  />
+
+  <title>Material Design Lite</title>
+  <!--<link rel="shortcut icon" href="images/favicon.png">-->
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css" />
+  <link rel="stylesheet" href="/static/material-project.css" />
+</head>
+
+<body>
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Редактирование статьи</span>
+        <div class="mdl-layout-spacer"></div>
+
+        <!--
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+          <label
+            class="mdl-button mdl-js-button mdl-button--icon"
+            for="search"
+          >
+            <i class="material-icons">search</i>
+          </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" id="search">
+            <label class="mdl-textfield__label" for="search">Enter your query...</label>
+          </div>
+        </div>
+        -->
+
+        <button
+          class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+          id="hdrbtn"
+        >
+          <i class="material-icons">more_vert</i>
+        </button>
+
+        <ul
+          class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right"
+          for="hdrbtn"
+        >
+          <li class="mdl-menu__item">Поддержка</li>
+          <li class="mdl-menu__item">Справка по разделу</li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+      <header class="demo-drawer-header">
+        <img src="/static/user.jpg" class="demo-avatar">
+        <div class="demo-avatar-dropdown">
+          <!--<span>Иванова Галина (super-editor@obi.ru)</span>-->
+          <span>Иванова Галина</span>
+          <div class="mdl-layout-spacer"></div>
+          <button
+            id="accbtn"
+            class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+          >
+            <i class="material-icons" role="presentation">arrow_drop_down</i>
+            <span class="visuallyhidden">Иванов Геннадий</span>
+          </button>
+          <ul
+            class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="accbtn"
+          >
+            <li class="mdl-menu__item">
+              <!--<i class="material-icons">&#xE8B8;</i>-->
+              Настройки
+            </li>
+            <li class="mdl-menu__item">
+              <!--<i class="material-icons">&#xE87C;</i>-->
+              Профайл
+            </li>
+            <li class="mdl-menu__item">
+              <!--<i class="material-icons">&#xE879;</i>-->
+              Выход
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+        <a class="mdl-navigation__link" href="">
+          <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">&#xE254;</i>
+          Статьи
+        </a>
+        <a class="mdl-navigation__link" href="">
+          <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">&#xE6E1;</i>
+          Аналитика
+        </a>
+        <div class="mdl-layout-spacer"></div>
+        <a class="mdl-navigation__link" href="">
+          <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>
+          <span class="visuallyhidden">Справка</span>
+        </a>
+      </nav>
+    </div>
+
+    <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col" id="material-form" />
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  <script src="/static/c541579963300b9e6ce5/vendors.js"></script>
+
+  <script>
+    var jsForm = {
+      groups: [
+        {
+          title: 'Основные',
+          name: 'main',
+          elements: [
+            {
+              title: 'Автор',
+              name: 'author_id',
+              type: 'select',
+              options: [
+                { value: '1', title: 'Петя' },
+                { value: '2', title: 'Боря Красивый' },
+                { value: '3', title: 'Ксюша' },
+                { value: '4', title: 'inkognito 33' },
+              ],
+            },
+            {
+              title: 'Название',
+              name: 'title',
+              type: 'string',
+            },
+            {
+              title: 'Дата написания',
+              name: 'created_at',
+              type: 'datetime',
+            },
+            {
+              title: 'Дата публикации',
+              name: 'published_at',
+              type: 'datetime',
+            },
+            {
+              title: 'Статус',
+              name: 'status_id',
+              type: 'select',
+              options: [
+                { value: '1', title: 'черновик' },
+                { value: '2', title: 'на модерации' },
+                { value: '3', title: 'опубликована' },
+                { value: '4', title: 'скрыта' },
+                { value: '5', title: 'отклонена' },
+                { value: '6', title: 'удалена' },
+              ],
+            },
+            {
+              title: 'Сезон',
+              name: 'season',
+              type: 'multi-select',
+              options: [
+                { value: '1', title: 'весна' },
+                { value: '2', title: 'лето' },
+                { value: '3', title: 'осень' },
+                { value: '4', title: 'зима' },
+              ],
+            },
+            {
+              title: 'Текст статьи',
+              name: 'description',
+              type: 'text',
+            },
+            {
+              title: 'Публиковать на главной?',
+              name: 'is_home',
+              type: 'boolean',
+            },
+          ],
+        },
+        {
+          title: 'SEO',
+          name: 'seo',
+          elements: [
+            {
+              title: 'Тэги',
+              name: 'tags',
+              type: 'multi-select-with-adding',
+              options: [
+                { value: '1', title: 'декор' },
+                { value: '2', title: 'сад' },
+                { value: '3', title: 'огород' },
+                { value: '4', title: 'ремонт' },
+              ],
+            },
+            {
+              title: 'Ключевые слова',
+              name: 'seo_keywords',
+              type: 'multi-select-with-adding',
+              options: [
+                { value: '1', title: 'лопата' },
+                { value: '2', title: 'сад' },
+                { value: '3', title: 'огород' },
+                { value: '4', title: 'OBI' },
+                { value: '5', title: 'Новый год' },
+              ],
+            },
+            {
+              title: 'Описание',
+              name: 'seo_description',
+              type: 'string',
+            },
+          ],
+        },
+        {
+          title: 'Изображения',
+          name: 'images',
+          elements: [
+            {
+              title: 'Превью для списков',
+              name: 'preview',
+              type: 'image',
+            },
+            {
+              title: 'Основное',
+              name: 'preview',
+              type: 'image',
+            },
+          ],
+        },
+        {
+          title: 'Социальное',
+          name: 'social',
+          elements: [
+            {
+              title: 'Рейтинг',
+              name: 'rating',
+              type: 'number',
+              info: '339',
+            },
+            {
+              title: 'Лайки',
+              name: 'likes',
+              type: 'number',
+              value: '1003',
+              isDisabled: true,
+            },
+//           {
+//             title: 'Комментарии',
+//             name: 'comments',
+//             type: 'comments',
+//           },
+          ],
+        },
+//       {
+//         title: 'Сопутствующие материалы',
+//         name: 'materials',
+//         elements: [
+//           {
+//             title: 'Товары',
+//             name: 'products',
+//             type: 'multi-select-with-adding',
+//             options: [
+//               { value: '1', title: 'лопата' },
+//               { value: '2', title: 'молоток' },
+//             ],
+//           },
+//           {
+//             title: 'Похожие статьи',
+//             name: 'articles',
+//             type: 'multi-select-with-adding',
+//           },
+//         ],
+//       },
+      ],
+      buttons: [
+        {
+          type: 'submit',
+          name: 'submit',
+          title: 'Сохранить',
+        },
+        {
+          type: 'delete',
+          name: 'delete',
+          title: 'Удалить…',
+        },
+      ],
+    };
+  </script>
+
+  <script src="/static/c541579963300b9e6ce5/material-forms.js"></script>
+</body>
+</html>

@@ -10,7 +10,8 @@ import AssetsPlugin from 'assets-webpack-plugin';
 module.exports = {
   devtool: 'source-map',
   entry: {
-    app: './src/index.js',
+    app: './src/index.jsx',
+    'material-forms': './src/material-forms.jsx',
     vendor: [
       'react', 'react-dom', 'react-router', 'react-loader',
       'react-redux', 'redux',
@@ -34,6 +35,8 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } }),
     new CopyWebpackPlugin([
       { from: './src/index.html', to: '../../' },
+      { from: './src/material-forms.html', to: '../../' },
+      { from: './src/static', to: '../../static' },
     ]),
     new AssetsPlugin({ prettyPrint: true }),
     // new ExtractTextPlugin('app.css'),

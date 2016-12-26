@@ -1,5 +1,8 @@
 const fs = require('fs');
-const filesToParse = ['./build/index.html'];
+const filesToParse = [
+  './build/index.html',
+  './build/material-forms.html'
+];
 
 const readFile = (path, then) => {
   fs.readFile(path, 'utf-8', (err, data) => {
@@ -14,6 +17,7 @@ readFile('./webpack-assets.json', data => {
 //    '/static/app.css': assets.app.css,
     '/static/app.js': assets.app.js,
     '/static/vendors.js': assets.vendor.js,
+    '/static/material-forms.js': assets['material-forms'].js,
   };
 
   filesToParse.forEach(file => readFile(file, _data => {

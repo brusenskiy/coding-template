@@ -7,10 +7,11 @@ class Number extends Component {
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     value: PropTypes.string,
+    isDisabled: PropTypes.bool,
   };
 
   render() {
-    const { name, value, title } = this.props;
+    const { name, value, title, isDisabled } = this.props;
 
     return (
       <div>
@@ -20,6 +21,7 @@ class Number extends Component {
           floatingLabelText={title}
           type="number"
           inputStyle={{ textAlign: 'right' }}
+          disabled={isDisabled}
         />
       </div>
     );

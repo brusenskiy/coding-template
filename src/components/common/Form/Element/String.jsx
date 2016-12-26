@@ -7,18 +7,22 @@ class String extends Component {
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     value: PropTypes.string,
+    isDisabled: PropTypes.bool,
   };
 
   render() {
-    const { name, value, title } = this.props;
+    const { name, value, title, isDisabled } = this.props;
 
     return (
-      <TextField
-        defaultValue={value}
-        name={name}
-        floatingLabelText={title}
-        fullWidth
-      />
+      <div>
+        <TextField
+          defaultValue={value}
+          name={name}
+          floatingLabelText={title}
+          fullWidth
+          disabled={isDisabled}
+        />
+      </div>
     );
   }
 }
